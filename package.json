@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "base64": "node script/base64.js"
   },
   "devDependencies": {
     "@vitest/coverage-c8": "^0.24.5",
