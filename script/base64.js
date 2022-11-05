@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 (function() {
-    const dir = 'img';
+    const dir = 'res';
     const ext = '.png';
     const dst = 'src/res.json';
 
