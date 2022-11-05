@@ -1,6 +1,6 @@
 import { Tile, TileState, TileSuit } from "./Tile";
 
-export enum ParseError {
+export enum ErrorCode {
     None,
     InputEmpty,
     InputTooLong,
@@ -20,7 +20,7 @@ class OkResult {
 class ErrResult {
     readonly isOk = false;
 
-    constructor(public readonly error: ParseError, public readonly errorPos: number) { }
+    constructor(public readonly error: ErrorCode, public readonly errorPos: number) { }
 }
 
 type ParseResult = OkResult | ErrResult;
@@ -64,26 +64,26 @@ export class Parser {
         this.idx = 0;
         this.seq = seq.replace(/\s+/g, '') + Parser.restChar;
         if(this.seq.length > Parser.maxLength) {
-            return new ErrResult(ParseError.InputTooLong, 0);
+            return new ErrResult(ErrorCode.InputTooLong, 0);
         }
 
         const tiles = new Array<Tile>();
         const error = this.parseSeq(tiles);
-        return (error === ParseError.None) ? new OkResult(tiles) : new ErrResult(error, this.idx);
+        return (error === ErrorCode.None) ? new OkResult(tiles) : new ErrResult(error, this.idx);
     }
 
-    private parseSeq(tiles: Tile[]): ParseError {
+    private parseSeq(tiles: Tile[]): ErrorCode {
         this.parseSpace(tiles);
         while(!this.eof()) {
             const error = this.parseSet(tiles);
-            if(error !== ParseError.None) {
+            if(error !== ErrorCode.None) {
                 return error;
             }
 
             this.parseSpace(tiles);
         }
 
-        return tiles.length > 0 ? ParseError.None : ParseError.InputEmpty;
+        return tiles.length > 0 ? ErrorCode.None : ErrorCode.InputEmpty;
     }
 
     private parseSpace(tiles: Tile[]) {
@@ -94,11 +94,11 @@ export class Parser {
         }
     }
 
-    private parseSet(tiles: Tile[]): ParseError {
+    private parseSet(tiles: Tile[]): ErrorCode {
         const list = new Array<[number, TileState]>();
         while(!Parser.postfixChar.has(this.token)) {
             if(this.eof()) {
-                return ParseError.MissingSuit;
+                return ErrorCode.MissingSuit;
             }
 
             let state = TileState.Normal;
@@ -109,7 +109,7 @@ export class Parser {
 
             const num = parseInt(this.token);
             if(isNaN(num)) {
-                return ParseError.InvalidDigit;
+                return ErrorCode.InvalidDigit;
             }
 
             list.push([num, state]);
@@ -117,7 +117,7 @@ export class Parser {
         }
 
         if(list.length <= 0) {
-            return ParseError.MissingTile;
+            return ErrorCode.MissingTile;
         }
 
         const suit = Parser.postfixChar.get(this.token)!;
@@ -128,6 +128,6 @@ export class Parser {
             tiles.push(tile);
         }
 
-        return ParseError.None;
+        return ErrorCode.None;
     }
 }

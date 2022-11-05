@@ -1,4 +1,4 @@
-import { Parser, ParseError } from "../src/Parser";
+import { Parser, ErrorCode } from "../src/Parser";
 import { Tile, TileState, TileSuit } from "../src/Tile";
 
 import { describe, expect, test } from "vitest";
@@ -15,7 +15,7 @@ function testPass(seq: string, tiles: Tile[]) {
     });
 }
 
-function testFail(seq: string, error: ParseError, errPos: number) {
+function testFail(seq: string, error: ErrorCode, errPos: number) {
     const parser = new Parser();
     const result = parser.parse(seq);
 
@@ -267,25 +267,25 @@ describe('State', () => {
 });
 
 describe('Error', () => {
-    testFail('', ParseError.InputEmpty, 0);
-    testFail('   ', ParseError.InputEmpty, 0);
-    testFail('  \t  ', ParseError.InputEmpty, 0);
+    testFail('', ErrorCode.InputEmpty, 0);
+    testFail('   ', ErrorCode.InputEmpty, 0);
+    testFail('  \t  ', ErrorCode.InputEmpty, 0);
 
-    testFail('123', ParseError.MissingSuit, 3);
-    testFail('12m3', ParseError.MissingSuit, 4);
+    testFail('123', ErrorCode.MissingSuit, 3);
+    testFail('12m3', ErrorCode.MissingSuit, 4);
 
-    testFail('12m3|456p', ParseError.InvalidDigit, 4);
-    testFail('12m3x', ParseError.InvalidDigit, 4);
-    testFail('12m^|456p', ParseError.InvalidDigit, 4);
-    testFail('12m^', ParseError.InvalidDigit, 4);
-    testFail('12m^x', ParseError.InvalidDigit, 4);
-    testFail('12m^^', ParseError.InvalidDigit, 4);
-    testFail('12m^_', ParseError.InvalidDigit, 4);
-    testFail('12m^_456s', ParseError.InvalidDigit, 4);
-    testFail('12x3m', ParseError.InvalidDigit, 2);
+    testFail('12m3|456p', ErrorCode.InvalidDigit, 4);
+    testFail('12m3x', ErrorCode.InvalidDigit, 4);
+    testFail('12m^|456p', ErrorCode.InvalidDigit, 4);
+    testFail('12m^', ErrorCode.InvalidDigit, 4);
+    testFail('12m^x', ErrorCode.InvalidDigit, 4);
+    testFail('12m^^', ErrorCode.InvalidDigit, 4);
+    testFail('12m^_', ErrorCode.InvalidDigit, 4);
+    testFail('12m^_456s', ErrorCode.InvalidDigit, 4);
+    testFail('12x3m', ErrorCode.InvalidDigit, 2);
 
-    testFail('12m|m', ParseError.MissingTile, 4);
-    testFail('12mm', ParseError.MissingTile, 3);
-    testFail('123mp', ParseError.MissingTile, 4);
-    testFail('123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m', ParseError.InputTooLong, 0);
+    testFail('12m|m', ErrorCode.MissingTile, 4);
+    testFail('12mm', ErrorCode.MissingTile, 3);
+    testFail('123mp', ErrorCode.MissingTile, 4);
+    testFail('123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m123m', ErrorCode.InputTooLong, 0);
 });
