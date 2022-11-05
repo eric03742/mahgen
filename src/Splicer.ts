@@ -1,9 +1,11 @@
+import Tile from "./Tile";
+import TileState from "./TileState";
+import TileSuit from "./TileSuit";
 import res from './res.json';
 
 import Jimp from 'jimp/browser/lib/jimp';
-import { Tile, TileState, TileSuit } from "./Tile";
 
-export class Splicer {
+class Splicer {
     private static readonly imageDict = new Map<string, string>();
 
     private static readonly stateChar = new Map<TileState, string>([
@@ -79,3 +81,5 @@ export class Splicer {
 }
 
 Splicer.loadRes();
+
+export default Splicer;

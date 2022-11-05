@@ -1,31 +1,11 @@
-import { Tile, TileState, TileSuit } from "./Tile";
+import ErrorCode from "./ErrorCode";
+import Tile from "./Tile";
+import TileState from "./TileState";
+import TileSuit from "./TileSuit";
+import ParseError from "./ParseError";
 
-export enum ErrorCode {
-    None,
-    InputEmpty,
-    InputTooLong,
-    InvalidSuit,
-    InvalidDigit,
-    MissingTile,
-    MissingSuit,
-    Unknown
-}
 
-class OkResult {
-    readonly isOk = true;
-
-    constructor(public readonly tiles: ReadonlyArray<Tile>) { }
-}
-
-class ErrResult {
-    readonly isOk = false;
-
-    constructor(public readonly error: ErrorCode, public readonly errorPos: number) { }
-}
-
-type ParseResult = OkResult | ErrResult;
-
-export class Parser {
+class Parser {
     private idx = 0;
     private seq = '';
 
@@ -60,16 +40,20 @@ export class Parser {
         return this.token === Parser.restChar;
     }
 
-    parse(seq: string): ParseResult {
+    parse(seq: string): Tile[] {
         this.idx = 0;
         this.seq = seq.replace(/\s+/g, '') + Parser.restChar;
         if(this.seq.length > Parser.maxLength) {
-            return new ErrResult(ErrorCode.InputTooLong, 0);
+            throw new ParseError(ErrorCode.InputTooLong, 0);
         }
 
         const tiles = new Array<Tile>();
         const error = this.parseSeq(tiles);
-        return (error === ErrorCode.None) ? new OkResult(tiles) : new ErrResult(error, this.idx);
+        if(error !== ErrorCode.None) {
+            throw new ParseError(error, this.idx);
+        }
+
+        return tiles;
     }
 
     private parseSeq(tiles: Tile[]): ErrorCode {
@@ -131,3 +115,5 @@ export class Parser {
         return ErrorCode.None;
     }
 }
+
+export default Parser;

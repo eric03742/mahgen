@@ -1,5 +1,9 @@
-import { Parser, ErrorCode } from "../src/Parser";
-import { Tile, TileState, TileSuit } from "../src/Tile";
+import ErrorCode from "../src/ErrorCode";
+import Parser from "../src/Parser";
+import ParseError from "../src/ParseError";
+import Tile from "../src/Tile";
+import TileState from "../src/TileState";
+import TileSuit from "../src/TileSuit";
 
 import { describe, expect, test } from "vitest";
 
@@ -8,23 +12,16 @@ function testPass(seq: string, tiles: Tile[]) {
     const result = parser.parse(seq);
 
     test(seq, () => {
-        expect(result.isOk).toBeTruthy();
-        if(result.isOk) {
-            expect(result.tiles).toEqual(tiles);
-        }
+        expect(result).toEqual(tiles);
     });
 }
 
 function testFail(seq: string, error: ErrorCode, errPos: number) {
-    const parser = new Parser();
-    const result = parser.parse(seq);
-
     test(seq, () => {
-        expect(result.isOk).toBeFalsy();
-        if(!result.isOk) {
-            expect(result.error).toBe(error);
-            expect(result.errorPos).toBe(errPos);
-        }
+        expect(() => {
+            const parser = new Parser();
+            parser.parse(seq);
+        }).toThrow(new ParseError(error, errPos));
     });
 }
 

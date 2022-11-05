@@ -1,35 +1,21 @@
-import { ErrorCode, Parser } from "./Parser";
-import { Splicer } from "./Splicer";
+import ErrorCode from "./ErrorCode";
+import ParseError from "./ParseError";
+import Parser from "./Parser";
+import Splicer from "./Splicer";
 
-export { ErrorCode };
+class Mahgen {
+    private static readonly parser = new Parser();
+    private static readonly splicer = new Splicer();
 
-export class Ok {
-    readonly isOk = true;
+    static async render(seq: string): Promise<string> {
+        const tiles = Mahgen.parser.parse(seq);
+        const base64 = await Mahgen.splicer.splice(tiles);
+        if(base64.length <= 0) {
+            throw new ParseError(ErrorCode.Unknown, 0);
+        }
 
-    constructor(public readonly image: string) { }
-}
-
-export class Err {
-    readonly isOk = false;
-
-    constructor(public readonly error: ErrorCode, public readonly errorPos: number) { }
-}
-
-export type Result = Ok | Err;
-
-const parser = new Parser();
-const splicer = new Splicer();
-
-export async function render(seq: string): Promise<Result> {
-    const result = parser.parse(seq);
-    if(!result.isOk) {
-        return new Err(result.error, result.errorPos);
+        return base64;
     }
-
-    const base64 = await splicer.splice(result.tiles);
-    if(base64.length <= 0) {
-        return new Err(ErrorCode.Unknown, 0);
-    }
-
-    return new Ok(base64);
 }
+
+export default Mahgen;

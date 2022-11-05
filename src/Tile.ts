@@ -1,18 +1,8 @@
-export enum TileState {
-    Normal = 1,
-    Horizontal,
-    Stack,
-    Diff,
-}
+import TileState from "./TileState";
+import TileSuit from "./TileSuit";
 
-export enum TileSuit {
-    Man = 1,
-    Pin,
-    So,
-    Char,
-    Space,
-}
-
-export class Tile {
+class Tile {
     constructor(public readonly num: number, public readonly suit: TileSuit, public readonly state: TileState) { }
 }
+
+export default Tile;
