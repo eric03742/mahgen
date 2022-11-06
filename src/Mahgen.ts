@@ -7,6 +7,8 @@ class Mahgen {
     private static readonly parser = new Parser();
     private static readonly splicer = new Splicer();
 
+    private constructor() { }
+
     static async render(seq: string): Promise<string> {
         const tiles = Mahgen.parser.parse(seq);
         const base64 = await Mahgen.splicer.splice(tiles);
