@@ -81,7 +81,7 @@ Mahgen.render(seq: string): Promise<string>;
 
 请注意这是一个异步函数，因此你可能需要使用 `await` 关键字或 `.then()` 方法获取其执行结果。
 
-如果输入的序列不符合语法规范，则该函数会抛出类型为 `ParseError` 的异常，你可以使用 `try...catch` 语句或 `.catch()` 方法将其捕获。`ParseError` 类型包含下面两个成员：
+如果输入的序列不符合语法规范，则该函数会抛出类型为 `ParseError` 的异常，你可以使用 `try...catch` 语句或 `.catch()` 方法将其捕获。`ParseError` 异常类包含下面两个成员：
 
 * `code`：`ErrorCode` 类型的枚举，表示错误的类别；
 * `index`：表示错误出现的位置（下标从0开始）。
@@ -94,17 +94,17 @@ Mahgen.render(seq: string): Promise<string>;
 
 在日本麻将中，通常使用数字 `1-9` 描述牌的点数，使用字母 `p`、`s`、`m` 描述牌的类型 *饼 Pin*、*索 So*、*万 Man*。因此，序列 `1m2m3m` 就表示牌型 *一万二万三万*，`5p6p7p` 则表示 *五饼六饼七饼*。
 
-> <u>*1m2m3m*</u>
+> *1m2m3m*
 > 
 > ![1m2m3m](./doc/images/1m2m3m.png)
 
-> <u>*5p6p7p*</u>
+> *5p6p7p*
 >
 > ![5p6p7p](./doc/images/5p6p7p.png)
 
 特别地，我们使用数字 `0` 表示红宝牌，因此 `0p`、`0s`、`0m` 分别表示 *红五饼、红五索、红五万*：
 
-> <u>*0p、0s、0m*</u>
+> *0p、0s、0m*
 > 
 > ![0p0s0m](./doc/images/0p0s0m.png)
 
@@ -114,19 +114,19 @@ Mahgen.render(seq: string): Promise<string>;
 
 日本麻将使用字母 `z` 表示字牌，且字牌的顺序为"东南西北白发中"，因此 `1z 2z 3z 4z 5z 6z 7z` 就分别表示 *东 南 西 北 白 发 中*。
 
-> <u>*1z2z3z4z5z6z7z*</u>
+> *1z 2z 3z 4z 5z 6z 7z*
 > 
 > ![1234567z](./doc/images/1234567z.png)
 
 在此基础上，我们使用 `0z` 表示 *牌背*。例如，我们可以使用 `0z11p0z` 表示 *暗杠一饼*：
 
-> <u>*0z11p0z*</u>
+> *0z11p0z*
 > 
 > ![0z11p0z](./doc/images/0z11p0z.png)
 
 最后，为了让所有的数字对字牌都有意义，我们使用 `8z` 和 `9z` 表示两张并不在日本麻将中出现、但可能有用处的牌： *? 和 &ast;*。
 
-> <u>*8z、9z*</u>
+> *8z、9z*
 > 
 > ![8z9z](./doc/images/8z9z.png)
 
@@ -136,13 +136,13 @@ Mahgen.render(seq: string): Promise<string>;
 
 我们使用 `|` 在两张牌之间插入 *空格*，每个空格是 1/7 张牌的宽度。例如：
 
-> <u>*123p|456s|789m*</u>
+> *123p|456s|789m*
 > 
 > ![123p|456s|789m](./doc/images/123p456s789m.png)
 
 你可以连续使用多个 `|` 插入多个连续的空格来控制两张牌之间空格的宽度：
 
-> <u>*123p||||456s*</u>
+> *123p||||456s*
 > 
 > ![123p||||456s](./doc/images/123p%7C%7C%7C%7C456s.png)
 
@@ -154,17 +154,17 @@ Mahgen.render(seq: string): Promise<string>;
 
 我们使用前缀 `_` 表示将紧接着的下一张牌横置。例如，我们可以使用 `_123m` 表示 *使用二万和三万吃上家打出的一万*：
 
-> <u>*_123m*</u>
+> *_123m*
 > 
 > ![_123m](./doc/images/_123m.png)
 
 这里有更多的示例：
 
-> <u>*1_11s*</u>
+> *1_11s*
 >
 > ![1_11s](./doc/images/1_11s.png)
 
-> <u>*777_7p*</u>
+> *777_7p*
 >
 > ![777_7p](./doc/images/777_7p.png)
 
@@ -172,23 +172,23 @@ Mahgen.render(seq: string): Promise<string>;
 
 我们使用前缀 `^` 表示紧接着的下一张牌是加杠形成的重叠。例如：
 
-> <u>*77^7z*</u>
+> *77^7z*
 > 
 > ![77^7z](./doc/images/77=7z.png)
 
 ### 涉及红宝牌的加杠
 
-我们使用前缀 `v` 表示紧接着的下一张牌是加杠形成的重叠，且其中有一张牌是红宝牌。我们规定：`v0` 表示重叠中靠下的牌是红宝牌，靠上的牌是普通数牌；`v5` 表示重叠中靠下的牌是普通数牌，靠上的牌是普通牌。例如：
+我们使用前缀 `v` 表示紧接着的下一张牌是加杠形成的重叠，且其中有一张牌是红宝牌。我们定义：`v0` 表示重叠中靠下的牌是红宝牌，靠上的牌是普通数牌；`v5` 表示重叠中靠下的牌是普通数牌，靠上的牌是红宝牌。例如：
 
-> <u>*55v5p*</u>
+> *55v5p*
 > 
 > ![55v5p](./doc/images/55v5p.png)
 
-> <u>*5v05s*</u>
+> *5v05s*
 > 
 > ![5v05s](./doc/images/5v05s.png)
 
-> <u>*v555m*</u>
+> *v555m*
 > 
 > ![v555m](./doc/images/v555m.png)
 
@@ -204,7 +204,7 @@ Mahgen.render(seq: string): Promise<string>;
 
 将这些符号组合起来，我们就能够构造出各种各样的牌型，例如：
 
-> <u>*1m|_123p|5v05m|0z11s0z|66^6z*</u>
+> *1m|_123p|5v05m|0z11s0z|66^6z*
 > 
 > ![1m|_123p|5v05m|0z11s0z|66^6z](./doc/images/complicated.png)
 
@@ -212,18 +212,20 @@ Mahgen.render(seq: string): Promise<string>;
 
 ---
 
-## TypeScript 支持
+## 后续开发计划
+
+* 支持缩放等参数设置
+* 支持牌河模式显示
 
 ---
 
 ## 致谢
 
----
-
-## 后续开发计划
+* 感谢 [@black-desk](https://github.com/black-desk) ，他的项目 [mahjim](https://github.com/black-desk) 为本项目提供了灵感。
+* 感谢 [最完整的日本麻将中文维基百科](http://wiki.lingshangkaihua.com/mediawiki/index.php/%E9%A6%96%E9%A1%B5)，本项目的图片素材来源于这个网站。
 
 ---
 
 ## 许可证
 
-
+[MIT](./LICENSE)
