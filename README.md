@@ -16,25 +16,25 @@
 
 * 基本牌型
 
-![国士无双](doc/images/kokushimusou.png)
+![国士无双](docs/images/kokushimusou.png)
 
-![九莲宝灯](doc/images/churenpoto.png)
+![九莲宝灯](docs/images/churenpoto.png)
 
 * 吃
 
-![吃](doc/images/chi.png)
+![吃](docs/images/chi.png)
 
 * 碰
 
-![碰](doc/images/pong.png)
+![碰](docs/images/pong.png)
 
 * 杠
 
-![杠](doc/images/kan.png)
+![杠](docs/images/kan.png)
 
 * 红宝牌
 
-![红宝牌](doc/images/red.png)
+![红宝牌](docs/images/red.png)
 
 你可以访问 [这个网站](https://eric200203.github.io/frap-book-zh) 在线生成自己想要的牌型图片，并将它们保存到本地用于其他用途。例如，上面展示的麻将牌型图片都是使用这个网站生成的。
 
@@ -100,17 +100,17 @@ Mahgen.render(seq: string): Promise<string>;
 
 > *1m2m3m*
 > 
-> ![1m2m3m](./doc/images/1m2m3m.png)
+> ![1m2m3m](./docs/images/1m2m3m.png)
 
 > *5p6p7p*
 >
-> ![5p6p7p](./doc/images/5p6p7p.png)
+> ![5p6p7p](./docs/images/5p6p7p.png)
 
 特别地，我们使用数字 `0` 表示红宝牌，因此 `0p`、`0s`、`0m` 分别表示 *红五饼、红五索、红五万*：
 
 > *0p、0s、0m*
 > 
-> ![0p0s0m](./doc/images/0p0s0m.png)
+> ![0p0s0m](./docs/images/0p0s0m.png)
 
 为了简化书写，你可以将同一类型的牌的类型描述全部省略，只保留最后一个。例如，你可以将上文中的 `1m2m3m` 简写为 `123m`，`5p6p7p` 简写为 `567p`。当然，你也可以写作 `1m23m` 或 `12m3m`，它们都表示 *一万二万三万* 这个牌型。
 
@@ -120,19 +120,19 @@ Mahgen.render(seq: string): Promise<string>;
 
 > *1z 2z 3z 4z 5z 6z 7z*
 > 
-> ![1234567z](./doc/images/1234567z.png)
+> ![1234567z](./docs/images/1234567z.png)
 
 在此基础上，我们使用 `0z` 表示 *牌背*。例如，我们可以使用 `0z11p0z` 表示 *暗杠一饼*：
 
 > *0z11p0z*
 > 
-> ![0z11p0z](./doc/images/0z11p0z.png)
+> ![0z11p0z](./docs/images/0z11p0z.png)
 
 最后，为了让所有的数字对字牌都有意义，我们使用 `8z` 和 `9z` 表示两张并不在日本麻将中出现、但可能有用处的牌： *? 和 &ast;*。
 
 > *8z、9z*
 > 
-> ![8z9z](./doc/images/8z9z.png)
+> ![8z9z](./docs/images/8z9z.png)
 
 和数牌一样，字牌也可以简写，例如 `3z3z3z` 可以简写为 `333z`。
 
@@ -142,13 +142,13 @@ Mahgen.render(seq: string): Promise<string>;
 
 > *123p|456s|789m*
 > 
-> ![123p|456s|789m](./doc/images/123p456s789m.png)
+> ![123p|456s|789m](./docs/images/123p456s789m.png)
 
 你可以连续使用多个 `|` 插入多个连续的空格来控制两张牌之间空格的宽度：
 
 > *123p||||456s*
 > 
-> ![123p||||456s](./doc/images/123p%7C%7C%7C%7C456s.png)
+> ![123p||||456s](./docs/images/123p%7C%7C%7C%7C456s.png)
 
 ## 副露
 
@@ -160,17 +160,17 @@ Mahgen.render(seq: string): Promise<string>;
 
 > *_123m*
 > 
-> ![_123m](./doc/images/_123m.png)
+> ![_123m](./docs/images/_123m.png)
 
 这里有更多的示例：
 
 > *1_11s*
 >
-> ![1_11s](./doc/images/1_11s.png)
+> ![1_11s](./docs/images/1_11s.png)
 
 > *777_7p*
 >
-> ![777_7p](./doc/images/777_7p.png)
+> ![777_7p](./docs/images/777_7p.png)
 
 ### 加杠
 
@@ -178,7 +178,7 @@ Mahgen.render(seq: string): Promise<string>;
 
 > *77^7z*
 > 
-> ![77^7z](./doc/images/77=7z.png)
+> ![77^7z](./docs/images/77=7z.png)
 
 ### 涉及红宝牌的加杠
 
@@ -186,15 +186,15 @@ Mahgen.render(seq: string): Promise<string>;
 
 > *55v5p*
 > 
-> ![55v5p](./doc/images/55v5p.png)
+> ![55v5p](./docs/images/55v5p.png)
 
 > *5v05s*
 > 
-> ![5v05s](./doc/images/5v05s.png)
+> ![5v05s](./docs/images/5v05s.png)
 
 > *v555m*
 > 
-> ![v555m](./doc/images/v555m.png)
+> ![v555m](./docs/images/v555m.png)
 
 ### 总结
 
@@ -210,7 +210,7 @@ Mahgen.render(seq: string): Promise<string>;
 
 > *1m|_123p|5v05m|0z11s0z|66^6z*
 > 
-> ![1m|_123p|5v05m|0z11s0z|66^6z](./doc/images/complicated.png)
+> ![1m|_123p|5v05m|0z11s0z|66^6z](./docs/images/complicated.png)
 
 最后，`mahgen` 只为给定的序列生成图片，不会对序列是否符合牌理进行检查，因此诸如 `_5^50v0m` 的序列对 `mahgen` 而言同样是合法的。
 
