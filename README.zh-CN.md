@@ -2,6 +2,10 @@
 
 [English](./README.md) | 中文
 
+![](https://img.shields.io/npm/l/mahgen) | 
+![](https://img.shields.io/npm/v/mahgen) | 
+![](https://img.shields.io/npm/types/mahgen)
+
 `mahgen` 是一个为给定的日本麻将的牌型生成对应牌面图片的工具库。`mahgen` 是 ***Mah**jong* ***Gen**erator* 的缩写。
 
 ---
