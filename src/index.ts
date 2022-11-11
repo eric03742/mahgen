@@ -1,5 +1,8 @@
 import ErrorCode from "./ErrorCode";
-import ParseError from "./ParseError";
 import Mahgen from "./Mahgen";
+import MahgenElement from "./MahgenElement";
+import ParseError from "./ParseError";
 
-export { ErrorCode, ParseError, Mahgen };
+customElements.define('mah-gen', MahgenElement);
+
+export { Mahgen, MahgenElement, ErrorCode, ParseError };

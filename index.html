@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="module" src="/src/launcher.ts"></script>
+    <script type="module" src="/src/index.ts"></script>
+    <link rel="stylesheet" href="./src/simple.min.css">
     <title>Mahgen</title>
 </head>
 <body>
@@ -14,18 +15,32 @@
 <main>
     <input type="text" name="seq" id="seq" placeholder="Input Mahjong Sequence Here..." style="width: 100%" />
     <button id="btn" style="width: 100%">Generate!</button>
-    <div id="msg" style="display: none">
-        <blockquote>
-            <strong>Gen Result</strong>
-        </blockquote>
-    </div>
 
     <figure>
-        <img src="" id="tile" alt="tile" style="horiz-align: center; display: none"/>
+        <mah-gen id="tile" data-seq="7z" src="" alt="tile" style="horiz-align: center"></mah-gen>
     </figure>
 </main>
 <footer>
     <p>Mahgen was created by <a href="https://github.com/eric200203" target="_blank">Eric Lee</a> and is licensed under the MIT license.</p>
 </footer>
 </body>
+<script type="application/javascript">
+    function render() {
+        /**
+         * @type {MahgenElement}
+         */
+        const img = document.querySelector('#tile');
+        /**
+         * @type {HTMLInputElement}
+         */
+        const it = document.querySelector('#seq');
+        img.setAttribute('data-seq', it.value);
+    }
+
+    /**
+     * @type {HTMLButtonElement}
+     */
+    const button = document.querySelector('#btn');
+    button.addEventListener('click', render);
+</script>
 </html>
