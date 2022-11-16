@@ -3,7 +3,7 @@ import TileState from "./TileState";
 import TileSuit from "./TileSuit";
 import res from './res.json';
 
-import Jimp from 'jimp/browser/lib/jimp';
+import JimpWorker from './JimpWorker?worker&inline';
 
 class Splicer {
     private static readonly imageDict = new Map<string, string>();
@@ -32,40 +32,30 @@ class Splicer {
     }
 
     public async splice(tiles: ReadonlyArray<Tile>) {
-        try {
-            let width = 0;
-            let height = 0;
-            let pos = 0;
-
-            const images = [];
-            for(const tile of tiles) {
-                const buffer = this.getImage(tile);
-                const image = await Jimp.read(buffer);
-                images.push(image);
-            }
-
-            for(const image of images) {
-                width += image.getWidth();
-                height = Math.max(height, image.getHeight());
-            }
-
-            const result = await Jimp.create(width, height, 0x00000000);
-            for(const image of images) {
-                result.blit(image, pos, height - image.getHeight());
-                pos += image.getWidth();
-            }
-
-            return await result.getBase64Async(Jimp.MIME_PNG);
-        } catch(e) {
-            console.error(e);
+        const images = new Array<string>();
+        for(const tile of tiles) {
+            const image = this.getImage(tile);
+            images.push(image);
         }
 
-        return '';
+        return new Promise<string>((resolve, reject) => {
+            const worker = new JimpWorker();
+            worker.onerror = (err: any) => {
+                reject(err);
+            }
+            worker.onmessage = (msg: MessageEvent<string>) => {
+                resolve(msg.data);
+            }
+
+            worker.postMessage({
+                images: images
+            });
+        });
     }
 
     private getImage(tile: Tile) {
         if(tile.suit === TileSuit.Space) {
-            return Buffer.from(Splicer.imageDict.get(Splicer.spaceName)!, 'base64');
+            return Splicer.imageDict.get(Splicer.spaceName)!;
         }
 
         let prefix = Splicer.stateChar.get(tile.state)!;
@@ -76,7 +66,7 @@ class Splicer {
             key = prefix + tile.num.toString() + postfix;
         }
 
-        return Buffer.from(Splicer.imageDict.get(key)!, 'base64');
+        return Splicer.imageDict.get(key)!;
     }
 }
 

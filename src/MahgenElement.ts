@@ -33,9 +33,10 @@ class MahgenElement extends HTMLElement {
             })
             .catch(err => {
                 if(err instanceof ParseError) {
-                    this.img.src = '';
-                    this.img.alt = `Invalid Sequence "${seq}": ${err.message}`;
+                    console.error(`[Mahgen] invalid sequence "${seq}": ${err.message}.`);
                 }
+
+                this.img.src = '';
             });
     }
 }
