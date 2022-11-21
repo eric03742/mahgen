@@ -253,3 +253,11 @@ Mahgen.render(seq: string): Promise<string>;
 ## 许可证
 
 [MIT](./LICENSE)
+
+---
+
+## 更新日志
+
+### v0.3.0
+
+`mahgen` 第一版.

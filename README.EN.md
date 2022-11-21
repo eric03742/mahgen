@@ -253,3 +253,11 @@ Finally, `mahgen` only generates images for given sequences and does not check w
 ## License
 
 [MIT](./LICENSE)
+
+---
+
+## Changelog
+
+### v0.3.0
+
+First version of `mahgen`.
