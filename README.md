@@ -36,13 +36,25 @@
 
 ![红宝牌](docs/images/red.png)
 
-你可以访问 [这个网站](https://mahgen.ericlab.cc) 在线生成自己想要的牌型图片，并将它们保存到本地用于其他用途。例如，上面展示的麻将牌型图片都是使用这个网站生成的。
+你可以访问 [这个网站](https://mahgen.ericlab.cc) 进行体验，它使用了 `mahgen` 在线生成用户指定的牌型图片，这些图片可以保存到本地用于其他用途。例如，上面展示的麻将牌型图片都是使用这个网站生成的。
 
 ---
 
 ## 安装
 
-使用 `npm` 即可安装：
+**使用 CDN**
+
+你可以借助 `script` 标签直接通过 CDN 来使用 `mahgen`：
+
+```html
+<script src="https://unpkg.com/mahgen/dist/index.umd.js"></script>
+```
+
+你也可以将这一文件下载到本地并自行提供服务。
+
+**使用 NPM**
+
+另外，你也可以使用 `npm` 安装 `mahgen`：
 
 ```shell
 npm install --save mahgen
@@ -50,29 +62,35 @@ npm install --save mahgen
 
 ---
 
-## 快速上手
+## 用法
+
+`mahgen` 定义了一个新的 HTML 标签 `<mah-gen>`，你可以通过 `data-seq` 属性指定这个标签所生成图片的牌型（其语法见后文）。
 
 下面是一个使用 `mahgen` 的简单示例：
 
-```javascript
-import {ErrorCode, Mahgen, ParseError} from "mahgen";
-
-try {
-    const res = await Mahgen.render('1m2m3m');
-    const node = document.querySelector('#mahjong');
-    node.src = res;
-} catch(e) {
-    if(e instanceof ParseError) {
-        console.log(`ErrorCode: ${ErrorCode[e.code]}, ErrorIndex: ${e.index}!`);
-    }
-}
+```html
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mahgen Example</title>
+    <script src="https://unpkg.com/mahgen/dist/index.umd.js"></script>
+</head>
+<body>
+    <h1>Mahgen Example</h1>
+    <mah-gen data-seq="123m|456p"></mah-gen>
+</body>
+</html>
 ```
+
+你可以在 [JSFiddle](https://jsfiddle.net/eric200203/qLghnmus) 在线查看它的渲染结果。
 
 ---
 
-## 用法
+## API
 
-`mahgen` 的公开接口只有下面这一个函数：
+`mahgen` 还提供了如下的 API：
 
 ```
 Mahgen.render(seq: string): Promise<string>;
@@ -89,6 +107,8 @@ Mahgen.render(seq: string): Promise<string>;
 
 * `code`：`ErrorCode` 类型的枚举，表示错误的类别；
 * `index`：表示错误出现的位置（下标从0开始）。
+
+实际上，自定义标签 `<mah-gen>` 就是在这一 API 的基础上所进行的封装。
 
 ---
 
