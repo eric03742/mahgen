@@ -22,6 +22,7 @@ class MahgenElement extends HTMLElement {
 
     private genImage() {
         const seq = this.getAttribute('data-seq');
+        const showMsg = this.hasAttribute('data-show-err');
         if(seq === null) {
             return;
         }
@@ -37,6 +38,7 @@ class MahgenElement extends HTMLElement {
                 }
 
                 this.img.src = '';
+                this.img.alt = showMsg ? err.message : '';
             });
     }
 }

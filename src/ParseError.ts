@@ -2,7 +2,8 @@ import ErrorCode from "./ErrorCode";
 
 class ParseError extends Error {
     constructor(public readonly code: ErrorCode, public readonly index: number) {
-        super(ErrorCode[code]);
+        const msg = `Error: ${ErrorCode[code]} at pos '${index}'!`;
+        super(msg);
         Object.setPrototypeOf(this, ParseError.prototype);
     }
 }
