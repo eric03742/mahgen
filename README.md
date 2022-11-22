@@ -64,7 +64,10 @@ npm install --save mahgen
 
 ## 用法
 
-`mahgen` 定义了一个新的 HTML 标签 `<mah-gen>`，你可以通过 `data-seq` 属性指定这个标签所生成图片的牌型（其语法见后文）。
+`mahgen` 定义了一个新的 HTML 标签 `<mah-gen>`，它包含了两个自定义属性:
+
+* `data-seq` 属性用于指定这个标签所生成图片的牌型（其语法见后文）。
+* `data-show-err` 属性用于指定在输入的序列不合法时，是否在生成图片的 `alt` 属性中展示错误原因。这个属性没有值。
 
 下面是一个使用 `mahgen` 的简单示例：
 
@@ -79,7 +82,7 @@ npm install --save mahgen
 </head>
 <body>
     <h1>Mahgen Example</h1>
-    <mah-gen data-seq="123m|456p"></mah-gen>
+    <mah-gen data-seq="123m|456p" data-show-err></mah-gen>
 </body>
 </html>
 ```
@@ -257,6 +260,10 @@ Mahgen.render(seq: string): Promise<string>;
 ---
 
 ## 更新日志
+
+### v0.3.1
+
+添加 `data-show-err` 属性，用于在输入序列不合法时显示具体的错误信息。
 
 ### v0.3.0
 
