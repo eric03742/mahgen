@@ -1,39 +1,186 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  
-  <title>Mahgen - 麻将牌型图片生成工具</title>
-  <script type="module" crossorigin src="/assets/index.a1580446.js"></script>
-  <link rel="stylesheet" href="/assets/index.323f7089.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./css/pico.min.css">
+    <script src="https://unpkg.com/mahgen/dist/index.umd.js"></script>
+    <title data-i18n="KEY_DOC_TITLE"></title>
+  <script type="module" crossorigin src="/assets/index.3d4932c0.js"></script>
   <script type="module">try{import.meta.url;import("_").catch(()=>1);}catch(e){}window.__vite_is_modern_browser=true;</script>
   <script type="module">!function(){if(window.__vite_is_modern_browser)return;console.warn("vite: loading legacy build because dynamic import or import.meta.url is unsupported, syntax error above should be ignored");var e=document.getElementById("vite-legacy-polyfill"),n=document.createElement("script");n.src=e.src,n.onload=function(){System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))},document.body.appendChild(n)}();</script>
 </head>
 <body>
-<header>
-  <h1>Mahgen</h1>
-  <p>Mahjong Image Generator</p>
-</header>
-<main>
-  <input type="text" name="seq" id="seq" placeholder="Input Mahjong Sequence Here..." style="width: 100%" />
-  <button id="btn" style="width: 100%">Generate!</button>
-  <div id="msg" style="display: none">
-    <blockquote>
-      <strong>Gen Result</strong>
-    </blockquote>
-  </div>
+<div>
+    <nav class="container-fluid">
+        <ul>
+            <li>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" preserveAspectRatio="xMidYMid meet" width="1.2em" height="1.2em"><path d="M0 448c0 17.7 14.3 32 32 32s32-14.3 32-32H0zM32 64L58.6 46.2c-7.8-11.7-22.4-17-35.9-12.9S0 49.9 0 64l32 0zM224 352l-26.6 17.8c5.9 8.9 15.9 14.2 26.6 14.2s20.7-5.3 26.6-14.2L224 352zM416 64h32c0-14.1-9.2-26.5-22.7-30.6s-28.1 1.1-35.9 12.9L416 64zM384 448c0 17.7 14.3 32 32 32s32-14.3 32-32H384zM64 448V64H0V448H64zM5.4 81.8l192 288 53.3-35.5-192-288L5.4 81.8zm245.3 288l192-288L389.4 46.2l-192 288 53.3 35.5zM384 64V448h64V64H384z"/></svg>            </li>
 
-  <figure>
-    <img src="" id="tile" alt="tile" style="horiz-align: center; display: none"/>
-  </figure>
+        </ul>
+        <ul>
+            <li>
+                <details role="list" dir="rtl">
+                    <summary aria-haspopup="listbox" role="link" class="contrast">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet" width="1.2em" height="1.2em"><path d="M448 256c0-106-86-192-192-192V448c106 0 192-86 192-192zm64 0c0 141.4-114.6 256-256 256S0 397.4 0 256S114.6 0 256 0S512 114.6 512 256z"/></svg>
+                    </summary>
+                    <ul role="listbox">
+                        <li><a href="#" data-theme-switcher="auto" data-i18n="KEY_THEME_AUTO"></a></li>
+                        <li><a href="#" data-theme-switcher="light" data-i18n="KEY_THEME_LIGHT"></a></li>
+                        <li><a href="#" data-theme-switcher="dark" data-i18n="KEY_THEME_DARK"></a></li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details role="list" dir="rtl">
+                    <summary aria-haspopup="listbox" role="link" class="contrast">
+                        <svg preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" width="1.2em" height="1.2em" data-v-7b5f8a18=""><path fill="currentColor" d="m18.5 10l4.4 11h-2.155l-1.201-3h-4.09l-1.199 3h-2.154L16.5 10h2zM10 2v2h6v2h-1.968a18.222 18.222 0 0 1-3.62 6.301a14.864 14.864 0 0 0 2.336 1.707l-.751 1.878A17.015 17.015 0 0 1 9 13.725a16.676 16.676 0 0 1-6.201 3.548l-.536-1.929a14.7 14.7 0 0 0 5.327-3.042A18.078 18.078 0 0 1 4.767 8h2.24A16.032 16.032 0 0 0 9 10.877a16.165 16.165 0 0 0 2.91-4.876L2 6V4h6V2h2zm7.5 10.885L16.253 16h2.492L17.5 12.885z"></path></svg>
+                    </summary>
+                    <ul role="listbox">
+                        <li><a href="/" data-i18n-switcher="cn">中文</a></li>
+                        <li><a href="/" data-i18n-switcher="en">English</a></li>
+                    </ul>
+                </details>
+            </li>
+        </ul>
+    </nav>
+    <header class="container">
+        <hgroup>
+            <h1 data-i18n="KEY_TITLE"></h1>
+            <h2 data-i18n="KEY_SUBTITLE"></h2>
+        </hgroup>
+    </header>
+</div>
+
+<main class="container">
+    <input type="text" name="seq" id="seq" placeholder="KEY_INPUT_PLACEHOLDER" />
+    <button id="btn" data-i18n="KEY_GENERATE"></button>
+    <figure style="text-align: center">
+        <mah-gen id="tile" data-seq="7z" data-show-err></mah-gen>
+        <figcaption data-i18n="KEY_FIGCAPTION"></figcaption>
+    </figure>
 </main>
-<footer>
-  <p>Mahgen was created by <a href="https://github.com/eric200203" target="_blank">Eric Lee</a> and is licensed under the MIT license.</p>
+<hr>
+<main class="container">
+    <h3 data-i18n="KEY_SYNTAX_TITLE"></h3>
+
+    <h4 data-i18n="KEY_SYNTAX_NUMBER_TITLE"></h4>
+    <p data-i18n="KEY_SYNTAX_NUMBER_DESC_1"></p>
+    <figure>
+        <mah-gen data-seq="1m2m3m"></mah-gen>
+        <figcaption><em>1m2m3m</em></figcaption>
+    </figure>
+    <figure>
+        <mah-gen data-seq="5p6p7p"></mah-gen>
+        <figcaption><em>5p6p7p</em></figcaption>
+    </figure>
+    <p data-i18n="KEY_SYNTAX_NUMBER_DESC_2"></p>
+    <figure>
+        <mah-gen data-seq="0p||0s||0m"></mah-gen>
+        <figcaption><em>0p、0s、0m</em></figcaption>
+    </figure>
+    <p data-i18n="KEY_SYNTAX_NUMBER_DESC_3"></p>
+
+    <h4 data-i18n="KEY_SYNTAX_HONOR_TITLE"></h4>
+    <p data-i18n="KEY_SYNTAX_HONOR_DESC_1"></p>
+    <figure>
+        <mah-gen data-seq="1234567z"></mah-gen>
+        <figcaption><em>1z 2z 3z 4z 5z 6z 7z</em></figcaption>
+    </figure>
+    <p data-i18n="KEY_SYNTAX_HONOR_DESC_2"></p>
+    <figure>
+        <mah-gen data-seq="0z11p0z"></mah-gen>
+        <figcaption><em>0z11p0z</em></figcaption>
+    </figure>
+    <p data-i18n="KEY_SYNTAX_HONOR_DESC_3"></p>
+    <figure>
+        <mah-gen data-seq="8z||9z"></mah-gen>
+        <figcaption><em>8z、9z</em></figcaption>
+    </figure>
+    <p data-i18n="KEY_SYNTAX_HONOR_DESC_4"></p>
+
+    <h4 data-i18n="KEY_SYNTAX_SPACE_TITLE"></h4>
+    <p data-i18n="KEY_SYNTAX_SPACE_DESC_1"></p>
+    <figure>
+        <mah-gen data-seq="123p|456s|789m"></mah-gen>
+        <figcaption><em>123p|456s|789m</em></figcaption>
+    </figure>
+    <p data-i18n="KEY_SYNTAX_SPACE_DESC_2"></p>
+    <figure>
+        <mah-gen data-seq="123p||||456s"></mah-gen>
+        <figcaption><em>123p||||456s</em></figcaption>
+    </figure>
+
+    <h4 data-i18n="KEY_SYNTAX_NAKI_TITLE"></h4>
+    <p data-i18n="KEY_SYNTAX_NAKI_DESC_1"></p>
+
+    <h5 data-i18n="KEY_SYNTAX_NAKI_SUBTITLE_1"></h5>
+    <p data-i18n="KEY_SYNTAX_NAKI_DESC_2"></p>
+    <figure>
+        <mah-gen data-seq="_123m"></mah-gen>
+        <figcaption><em>_123m</em></figcaption>
+    </figure>
+    <p data-i18n="KEY_SYNTAX_NAKI_DESC_3"></p>
+    <figure>
+        <mah-gen data-seq="1_11s"></mah-gen>
+        <figcaption><em>1_11s</em></figcaption>
+    </figure>
+    <figure>
+        <mah-gen data-seq="777_7p"></mah-gen>
+        <figcaption><em>777_7p</em></figcaption>
+    </figure>
+
+    <h5 data-i18n="KEY_SYNTAX_NAKI_SUBTITLE_2"></h5>
+    <p data-i18n="KEY_SYNTAX_NAKI_DESC_4"></p>
+    <figure>
+        <mah-gen data-seq="77^7z"></mah-gen>
+        <figcaption><em>77^7z</em></figcaption>
+    </figure>
+
+    <h5 data-i18n="KEY_SYNTAX_NAKI_SUBTITLE_3"></h5>
+    <p data-i18n="KEY_SYNTAX_NAKI_DESC_5"></p>
+    <figure>
+        <mah-gen data-seq="55v5p"></mah-gen>
+        <figcaption><em>55v5p</em></figcaption>
+    </figure>
+    <figure>
+        <mah-gen data-seq="5v05s"></mah-gen>
+        <figcaption><em>5v05s</em></figcaption>
+    </figure>
+    <figure>
+        <mah-gen data-seq="v555m"></mah-gen>
+        <figcaption><em>v555m</em></figcaption>
+    </figure>
+
+    <h4 data-i18n="KEY_SYNTAX_SUMMARY_TITLE"></h4>
+    <p data-i18n="KEY_SYNTAX_SUMMARY_DESC_1"></p>
+    <ul>
+        <li data-i18n="KEY_SYNTAX_SUMMARY_LIST_1"></li>
+        <li data-i18n="KEY_SYNTAX_SUMMARY_LIST_2"></li>
+        <li data-i18n="KEY_SYNTAX_SUMMARY_LIST_3"></li>
+        <li data-i18n="KEY_SYNTAX_SUMMARY_LIST_4"></li>
+        <li data-i18n="KEY_SYNTAX_SUMMARY_LIST_5"></li>
+    </ul>
+    <p data-i18n="KEY_SYNTAX_SUMMARY_DESC_2"></p>
+    <figure>
+        <mah-gen data-seq="1m|_123p|5v05m|0z11s0z|66^6z"></mah-gen>
+        <figcaption><em>1m|_123p|5v05m|0z11s0z|66^6z</em></figcaption>
+    </figure>
+    <p data-i18n="KEY_SYNTAX_SUMMARY_DESC_3"></p>
+    <figure>
+        <mah-gen data-seq="_5^50v0m"></mah-gen>
+        <figcaption><em>_5^50v0m</em></figcaption>
+    </figure>
+<hr>
+</main>
+<footer class="container">
+    <p data-i18n="KEY_FOOTER"></p>
 </footer>
   <script nomodule>!function(){var e=document,t=e.createElement("script");if(!("noModule"in t)&&"onbeforeload"in t){var n=!1;e.addEventListener("beforeload",(function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()}),!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove()}}();</script>
-  <script nomodule crossorigin id="vite-legacy-polyfill" src="/assets/polyfills-legacy.cfbe381c.js"></script>
-  <script nomodule crossorigin id="vite-legacy-entry" data-src="/assets/index-legacy.30a1e2a5.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
+  <script nomodule crossorigin id="vite-legacy-polyfill" src="/assets/polyfills-legacy.907dbd91.js"></script>
+  <script nomodule crossorigin id="vite-legacy-entry" data-src="/assets/index-legacy.dc987c16.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
 </body>
+
+
+
 </html>
