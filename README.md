@@ -248,7 +248,7 @@ Mahgen.render(seq: string): Promise<string>;
 
 ## 致谢
 
-* 感谢 [@black-desk](https://github.com/black-desk) ，他的项目 [mahjim](https://github.com/black-desk) 为本项目提供了灵感。
+* 感谢 [@black-desk](https://github.com/black-desk) ，他的项目 [mahjim](https://github.com/black-desk/mahjim) 为本项目提供了灵感。
 * 感谢 [最完整的日本麻将中文维基百科](http://wiki.lingshangkaihua.com/mediawiki/index.php/%E9%A6%96%E9%A1%B5)，本项目的图片素材来源于这个网站。
 
 ---

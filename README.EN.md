@@ -248,7 +248,7 @@ Finally, `mahgen` only generates images for given sequences and does not check w
 
 ## Acknowledgements
 
-* Thanks to [@black-desk](https://github.com/black-desk), whose project [mahjim](https://github.com/black-desk) greatly inspired this project.
+* Thanks to [@black-desk](https://github.com/black-desk), whose project [mahjim](https://github.com/black-desk/mahjim) greatly inspired this project.
 * Thanks to [最完整的日本麻将中文维基百科](http://wiki.lingshangkaihua.com/mediawiki/index.php/%E9%A6%96%E9%A1%B5), for the image materials for this project came from this site.
 
 ---
