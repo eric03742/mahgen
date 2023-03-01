@@ -239,6 +239,12 @@ Mahgen.render(seq: string): Promise<string>;
 
 ---
 
+## Hexo 插件
+
+`mahgen` 还提供了用于 [Hexo](https://hexo.io/) 的插件，参见 [hexo-mahgen](https://github.com/eric200203/hexo-mahgen)。
+
+---
+
 ## 后续开发计划
 
 * 支持缩放等参数设置

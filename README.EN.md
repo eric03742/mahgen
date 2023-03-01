@@ -239,6 +239,12 @@ Finally, `mahgen` only generates images for given sequences and does not check w
 
 ---
 
+## Hexo Plugin
+
+`mahgen` also provides a plugin for [Hexo](https://hexo.io/), see [hexo-mahgen](https://github.com/eric200203/hexo-mahgen).
+
+---
+
 ## TODO
 
 * Support for parameters like scaling, ...
