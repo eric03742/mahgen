@@ -9,9 +9,9 @@ class Mahgen {
 
     private constructor() { }
 
-    static async render(seq: string): Promise<string> {
-        const tiles = Mahgen.parser.parse(seq);
-        const base64 = await Mahgen.splicer.splice(tiles);
+    static async render(seq: string, river: boolean): Promise<string> {
+        const tiles = Mahgen.parser.parse(seq, river);
+        const base64 = await Mahgen.splicer.splice(tiles, river);
         if(base64.length <= 0) {
             throw new ParseError(ErrorCode.Unknown, 0);
         }

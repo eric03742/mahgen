@@ -40,7 +40,7 @@ class Parser {
         return this.token === Parser.restChar;
     }
 
-    parse(seq: string): Tile[] {
+    parse(seq: string, river: boolean): Tile[] {
         this.idx = 0;
         this.seq = seq.replace(/\s+/g, '') + Parser.restChar;
         if(this.seq.length > Parser.maxLength) {
@@ -48,7 +48,9 @@ class Parser {
         }
 
         const tiles = new Array<Tile>();
-        const error = this.parseSeq(tiles);
+        const error = river ?
+            this.parseRiver(tiles) :
+            this.parseSeq(tiles);
         if(error !== ErrorCode.None) {
             throw new ParseError(error, this.idx);
         }
@@ -65,6 +67,28 @@ class Parser {
             }
 
             this.parseSpace(tiles);
+        }
+
+        return tiles.length > 0 ? ErrorCode.None : ErrorCode.InputEmpty;
+    }
+
+    private parseRiver(tiles: Tile[]): ErrorCode {
+        while(!this.eof()) {
+            const error = this.parseSet(tiles);
+            if(error !== ErrorCode.None) {
+                return error;
+            }
+        }
+
+        let reach = 0;
+        for(const t of tiles) {
+            if(t.state === TileState.Horizontal || t.state === TileState.Diff) {
+                reach += 1;
+            }
+        }
+
+        if(reach > 1) {
+            return ErrorCode.TooManyReach;
         }
 
         return tiles.length > 0 ? ErrorCode.None : ErrorCode.InputEmpty;

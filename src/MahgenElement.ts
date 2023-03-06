@@ -23,12 +23,13 @@ class MahgenElement extends HTMLElement {
     private genImage() {
         const seq = this.getAttribute('data-seq');
         const showMsg = this.hasAttribute('data-show-err');
+        const river = this.hasAttribute('data-river-mode');
         if(seq === null) {
             return;
         }
 
         Mahgen
-            .render(seq)
+            .render(seq, river)
             .then(base64 => {
                 this.img.src = base64;
             })

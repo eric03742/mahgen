@@ -6,6 +6,7 @@ enum ErrorCode {
     InvalidDigit,
     MissingTile,
     MissingSuit,
+    TooManyReach,
     Unknown
 }
 
