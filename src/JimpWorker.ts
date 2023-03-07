@@ -36,6 +36,8 @@ self.onmessage = async (e: MessageEvent<MsgPack>) => {
                 lineHeight = 0;
             }
         }
+        width = Math.max(width, lineWidth);
+        height = height + lineHeight;
     } else {
         for(const image of images) {
             width += image.getWidth();
@@ -49,6 +51,14 @@ self.onmessage = async (e: MessageEvent<MsgPack>) => {
         let py = 0;
         for(let i = 1; i <= images.length; ++i) {
             const image = images[i - 1];
+            const cutter = pack.cutters[i - 1];
+            if(cutter) {
+                image.color([{
+                    apply: "shade",
+                    params: [50],
+                }]);
+            }
+            
             result.blit(image, px, py + single - image.getHeight());
             px += image.getWidth();
             if(i % 6 === 0) {
