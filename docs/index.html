@@ -10,7 +10,7 @@
   
   
   <title data-i18n="KEY_DOC_TITLE"></title>
-  <script type="module" crossorigin src="/assets/index.ad3b49c3.js"></script>
+  <script type="module" crossorigin src="/assets/index.4244ef46.js"></script>
   <script type="module">try{import.meta.url;import("_").catch(()=>1);}catch(e){}window.__vite_is_modern_browser=true;</script>
   <script type="module">!function(){if(window.__vite_is_modern_browser)return;console.warn("vite: loading legacy build because dynamic import or import.meta.url is unsupported, syntax error above should be ignored");var e=document.getElementById("vite-legacy-polyfill"),n=document.createElement("script");n.src=e.src,n.onload=function(){System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))},document.body.appendChild(n)}();</script>
 </head>
@@ -80,6 +80,10 @@
     <br>
 
     <div id="page-gui" hidden>
+      <fieldset>
+        <input type="checkbox" id="gui_river_mode_checkbox">
+        <label for="gui_river_mode_checkbox" data-i18n="KEY_RIVER_MODE"></label>
+      </fieldset>
       <div class="grid">
         <select id="slt-suit" required>
           <option class="opt-suit" value="" data-i18n="KEY_GUI_SELECT_SUIT" disabled selected></option>
@@ -102,10 +106,10 @@
           <option class="opt-num" value="9" data-i18n="KEY"></option>
         </select>
         <select id="slt-state" required style="visibility: hidden">
-          <option class="opt-state" value="" data-i18n="KEY_GUI_SELECT_STATE_NORMAL"></option>
-          <option class="opt-state" value="_" data-i18n="KEY_GUI_SELECT_STATE_HORIZONTAL"></option>
-          <option class="opt-state" value="^" data-i18n="KEY_GUI_SELECT_STATE_STACK"></option>
-          <option class="opt-state" value="v" data-i18n="KEY_GUI_SELECT_STATE_DIFF"></option>
+          <option id="opt_state_normal" class="opt-state" value="" data-i18n="KEY_GUI_SELECT_STATE_NORMAL"></option>
+          <option id="opt_state_horizontal" class="opt-state" value="_" data-i18n="KEY_GUI_SELECT_STATE_HORIZONTAL"></option>
+          <option id="opt_state_stack" class="opt-state" value="^" data-i18n="KEY_GUI_SELECT_STATE_STACK"></option>
+          <option id="opt_state_diff" class="opt-state" value="v" data-i18n="KEY_GUI_SELECT_STATE_DIFF"></option>
         </select>
       </div>
       <div class="grid">
@@ -121,6 +125,10 @@
     </div>
 
     <div id="page-text">
+      <fieldset>
+        <input type="checkbox" id="text_river_mode_checkbox">
+        <label for="text_river_mode_checkbox" data-i18n="KEY_RIVER_MODE"></label>
+      </fieldset>
       <input type="text" name="seq" id="seq" placeholder="KEY_INPUT_PLACEHOLDER" />
       <button id="btn" data-i18n="KEY_GENERATE"></button>
       <figure style="text-align: center">
@@ -248,7 +256,7 @@
   </footer>
   <script nomodule>!function(){var e=document,t=e.createElement("script");if(!("noModule"in t)&&"onbeforeload"in t){var n=!1;e.addEventListener("beforeload",(function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()}),!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove()}}();</script>
   <script nomodule crossorigin id="vite-legacy-polyfill" src="/assets/polyfills-legacy.13d0b063.js"></script>
-  <script nomodule crossorigin id="vite-legacy-entry" data-src="/assets/index-legacy.ac14a795.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
+  <script nomodule crossorigin id="vite-legacy-entry" data-src="/assets/index-legacy.9938b551.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
 </body>
 
 </html>
