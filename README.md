@@ -36,6 +36,10 @@
 
 ![红宝牌](docs/images/red.png)
 
+* 牌河模式
+
+![牌河模式](docs/images/river.png)
+
 你可以访问 [这个网站](https://mahgen.ericlab.cc) 进行体验，它使用了 `mahgen` 在线生成用户指定的牌型图片，这些图片可以保存到本地用于其他用途。例如，上面展示的麻将牌型图片都是使用这个网站生成的。
 
 ---
@@ -64,10 +68,11 @@ npm install --save mahgen
 
 ## 用法
 
-`mahgen` 定义了一个新的 HTML 标签 `<mah-gen>`，它包含了两个自定义属性:
+`mahgen` 定义了一个新的 HTML 标签 `<mah-gen>`，它包含了三个自定义属性:
 
 * `data-seq` 属性用于指定这个标签所生成图片的牌型（其语法见后文）。
 * `data-show-err` 属性用于指定在输入的序列不合法时，是否在生成图片的 `alt` 属性中展示错误原因。这个属性没有值。
+* `data-river-mode` 属性用于指定生成牌河模式的图片而非手牌牌型，此时序列的语义略有不同（见后文）。
 
 下面是一个使用 `mahgen` 的简单示例：
 
@@ -96,12 +101,13 @@ npm install --save mahgen
 `mahgen` 还提供了如下的 API：
 
 ```
-Mahgen.render(seq: string): Promise<string>;
+Mahgen.render(seq: string, river: boolean): Promise<string>;
 ```
 
 其中：
 
 * 参数 `seq` 是用于描述牌型的字符串序列（其语法见下节）；
+* 参数 `river` 用于表示是否生成牌河模式的图片；
 * 返回值是所生成的图片结果的 base64 数据，它可以用于如 HTML 中 `<img>` 标签的 `src` 属性。
 
 请注意这是一个异步函数，因此你可能需要使用 `await` 关键字或 `.then()` 方法获取其执行结果。
@@ -239,6 +245,25 @@ Mahgen.render(seq: string): Promise<string>;
 
 ---
 
+## 牌河模式
+
+从 v1.0.0 开始，`mahgen` 支持通过属性 `data-river-mode` 指定生成牌河模式的图片。
+
+在牌河模式下，序列的语法和语义有如下的区别：
+
+* `_` 改为表示立直，`^` 改为表示摸切，`v` 改为表示摸切立直；
+* 不允许使用 `|` 插入空格；
+* 最多只允许出现一次立直（包括立直 `_` 和摸切立直 `v`）；
+* 为了更好的灵活性，立直后并不默认摸切。
+
+示例：
+
+> *123^456_7m^8^9^1^2^4^5^8^7^2s*
+> 
+> ![123^456_7m^8^9^1^2^4^5^8^7^2s](./docs/images/river.png)
+
+---
+
 ## Hexo 插件
 
 `mahgen` 还提供了用于 [Hexo](https://hexo.io/) 的插件，参见 [hexo-mahgen](https://github.com/eric200203/hexo-mahgen)。
@@ -248,7 +273,6 @@ Mahgen.render(seq: string): Promise<string>;
 ## 后续开发计划
 
 * 支持缩放等参数设置
-* 支持牌河模式显示
 
 ---
 
@@ -266,6 +290,10 @@ Mahgen.render(seq: string): Promise<string>;
 ---
 
 ## 更新日志
+
+### v1.0.0
+
+添加 `data-river-mode` 属性，用于支持生成牌河模式的图片。
 
 ### v0.3.1
 
